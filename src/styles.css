@@ -1,0 +1,13 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.separator {
+  height: 32px;
+  width: max-content;
+}
+
+.monaco-editor {
+  padding-top: 16px;
+}
