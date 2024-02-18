@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Editor, { useMonaco } from "@monaco-editor/react";
 
 function SpreadsheetEditor() {
   const monaco = useMonaco();
+  const editorRef = useRef(null);
 
   useEffect(() => {
     if (!monaco) {
@@ -33,6 +34,7 @@ function SpreadsheetEditor() {
   }, [monaco]);
 
   const handleEditorMount = (editor, monaco) => {
+    editorRef.current = editor;
     const formulaSuggestions = [
       "SUM",
       "AVG",
@@ -125,19 +127,39 @@ function SpreadsheetEditor() {
     });
   };
 
+  function handleEditorValidation(markers) {
+    markers.forEach((marker) => console.log("onValidate:", marker.message));
+  }
+
   return (
-    <Editor
-      height="500px"
-      theme="vs-dark"
-      defaultValue="// Type your formula here"
-      defaultLanguage="mySpreadsheetLanguage"
-      path="mySpreadsheetLanguage"
-      onMount={handleEditorMount}
-      // https://microsoft.github.io/monaco-editor/typedoc/interfaces/editor.IStandaloneEditorConstructionOptions.html
-      options={{
-        minimap: { enabled: false },
-      }}
-    />
+    <div>
+      <Editor
+        height="500px"
+        theme="vs-dark"
+        defaultValue="// Type your formula here"
+        defaultLanguage="mySpreadsheetLanguage"
+        path="mySpreadsheetLanguage"
+        onMount={handleEditorMount}
+        onValidate={handleEditorValidation}
+        // https://microsoft.github.io/monaco-editor/typedoc/interfaces/editor.IStandaloneEditorConstructionOptions.html
+        options={{
+          minimap: { enabled: false },
+        }}
+      />
+
+      <div className="separator"></div>
+      <div className="layout-item-end">
+        <button
+          className="primary-button"
+          onClick={() => {
+            const value = editorRef.current.getValue();
+            console.log(value);
+          }}
+        >
+          Validate
+        </button>
+      </div>
+    </div>
   );
 }
 

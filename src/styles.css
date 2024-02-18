@@ -11,3 +11,25 @@
 .monaco-editor {
   padding-top: 16px;
 }
+
+.primary-button {
+  background-color: #5c8ef2;
+  border-width: 0;
+  width: fit-content;
+  padding: 12px 32px;
+  font-size: 14px;
+  color: white;
+  border-radius: 4px;
+  font-family: "Inter";
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button:hover {
+  background-color: #1152d5;
+}
+
+.layout-item-end {
+  display: flex;
+  justify-content: flex-end;
+}
